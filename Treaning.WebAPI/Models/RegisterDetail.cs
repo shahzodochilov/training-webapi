@@ -3,8 +3,13 @@
     public class RegisterDetail
     {
         public long Id { get; set; }
-        public long  TreaningId { get; set; }
+
+        public long  TreaningInfoId { get; set; }
+        public virtual TreaningInfo TreaningInfo { get; set; } = null!;
+
         public long StudentId { get; set; }
+        public virtual Student Student { get; set; } = null!;
+
         public bool Payment { get; set; }
     }
 }
