@@ -9,7 +9,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //--> Database
-var connectionString = builder.Configuration.GetConnectionString("PostgreSQLLocalDb");
+var connectionString = builder.Configuration.GetConnectionString("PostgreSqlLocalDb");
 builder.Services.AddDbContext<AppDbContext>(dbOptios => dbOptios.UseNpgsql(connectionString));
 
 //--> Middlewares

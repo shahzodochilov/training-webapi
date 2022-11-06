@@ -1,24 +1,23 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Treaning.WebAPI.Enums;
 
-namespace Treaning.WebAPI.Models
+namespace Treaning.WebAPI.ViewModels.Student
 {
-    public class Pupil
+    public class StudentCreateViewModel
     {
-        public long Id { get; set; }
-
-        [MaxLength(50)]
+        [Required, MaxLength(50)]
         public string? Firstname { get; set; }
 
-        [MaxLength(50)]
+        [Required, MaxLength(50)]
         public string? LastName { get; set; }
 
-        [StringLength(13)]
+        [Required, StringLength(13)]
         public string? PhoneNumber { get; set; }
 
-        [EmailAddress]
+        [Required, EmailAddress]
         public string? Email { get; set; }
 
+        [Required]
         public Gender Gender { get; set; }
     }
 }

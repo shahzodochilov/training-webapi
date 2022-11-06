@@ -12,8 +12,8 @@ using Treaning.WebAPI.Data;
 namespace Treaning.WebAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221105125301_InitalCreate")]
-    partial class InitalCreate
+    [Migration("20221106053645_M001")]
+    partial class M001
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,20 +35,17 @@ namespace Treaning.WebAPI.Migrations
                     b.Property<bool>("Payment")
                         .HasColumnType("boolean");
 
-                    b.Property<long>("StudentId")
+                    b.Property<long?>("StudentId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("TreaningInfoId")
+                    b.Property<long?>("TreaningInfoId")
                         .HasColumnType("bigint");
-
-                    b.Property<int>("TreaningInfoId1")
-                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.HasIndex("StudentId");
 
-                    b.HasIndex("TreaningInfoId1");
+                    b.HasIndex("TreaningInfoId");
 
                     b.ToTable("RegisterDetails");
                 });
@@ -64,7 +61,7 @@ namespace Treaning.WebAPI.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("text");
 
-                    b.Property<string>("Firstnam")
+                    b.Property<string>("Firstname")
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
@@ -95,7 +92,7 @@ namespace Treaning.WebAPI.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("text");
 
-                    b.Property<string>("Firstnam")
+                    b.Property<string>("Firstname")
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
@@ -117,11 +114,11 @@ namespace Treaning.WebAPI.Migrations
 
             modelBuilder.Entity("Treaning.WebAPI.Models.TreaningInfo", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("bigint");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<int>("Duration")
                         .HasColumnType("integer");
@@ -150,15 +147,11 @@ namespace Treaning.WebAPI.Migrations
                 {
                     b.HasOne("Treaning.WebAPI.Models.Student", "Student")
                         .WithMany()
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StudentId");
 
                     b.HasOne("Treaning.WebAPI.Models.TreaningInfo", "TreaningInfo")
                         .WithMany()
-                        .HasForeignKey("TreaningInfoId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TreaningInfoId");
 
                     b.Navigation("Student");
 

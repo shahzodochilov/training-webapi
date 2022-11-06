@@ -9,7 +9,6 @@ namespace Treaning.WebAPI.Data
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         {
-
         }
 
         public virtual DbSet<Student> Students { get; set; } = null!;

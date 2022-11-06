@@ -48,7 +48,7 @@ namespace Treaning.WebAPI.Migrations
                 name: "TreaningInfos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: true),
                     StartedDate = table.Column<DateOnly>(type: "date", nullable: false),
@@ -68,9 +68,8 @@ namespace Treaning.WebAPI.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    TreaningInfoId = table.Column<long>(type: "bigint", nullable: false),
-                    TreaningInfoId1 = table.Column<int>(type: "integer", nullable: false),
-                    StudentId = table.Column<long>(type: "bigint", nullable: false),
+                    TreaningInfoId = table.Column<long>(type: "bigint", nullable: true),
+                    StudentId = table.Column<long>(type: "bigint", nullable: true),
                     Payment = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
@@ -80,14 +79,12 @@ namespace Treaning.WebAPI.Migrations
                         name: "FK_RegisterDetails_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_RegisterDetails_TreaningInfos_TreaningInfoId1",
-                        column: x => x.TreaningInfoId1,
+                        name: "FK_RegisterDetails_TreaningInfos_TreaningInfoId",
+                        column: x => x.TreaningInfoId,
                         principalTable: "TreaningInfos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -96,9 +93,9 @@ namespace Treaning.WebAPI.Migrations
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RegisterDetails_TreaningInfoId1",
+                name: "IX_RegisterDetails_TreaningInfoId",
                 table: "RegisterDetails",
-                column: "TreaningInfoId1");
+                column: "TreaningInfoId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
