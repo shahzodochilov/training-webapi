@@ -56,9 +56,9 @@ namespace Treaning.WebAPI.Repositories
             else return false;
         }
 
-        public async Task<IQueryable<Student>> GetAllAsync(Expression<Func<Student, bool>> expression)
+        public async Task<IQueryable<Student>> GetAllAsync()
         {
-            return _dbo.Students.Where(expression);
+            return _dbo.Students.Where(x=>true);
         }
     }
 }
