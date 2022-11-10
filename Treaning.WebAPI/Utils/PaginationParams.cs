@@ -6,10 +6,7 @@
 
         public int PageSize { get; set; }
 
-        public int SkipCount { get {
-                                        return (PageIndex - 1) * PageSize;
-                                    } 
-        }
+        public int GetSkipCount()=> (PageIndex - 1) * PageSize;
     }
 }
     

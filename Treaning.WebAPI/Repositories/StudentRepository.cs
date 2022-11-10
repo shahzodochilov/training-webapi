@@ -5,6 +5,7 @@ using Treaning.WebAPI.Interfaces.Repositories;
 using Treaning.WebAPI.Models;
 
 namespace Treaning.WebAPI.Repositories
+#pragma warning disable
 {
     public class StudentRepository : IStudentRepository
     {
@@ -14,46 +15,30 @@ namespace Treaning.WebAPI.Repositories
         {
             _dbo = appDbContext;
         }
-        public async Task<bool> CreateAsync(Student entity)
+        public async Task CreateAsync(Student entity)
         {
             await _dbo.Students.AddAsync(entity);
             await _dbo.SaveChangesAsync();
-            return true;
         }
 
-        public async Task<bool> DeleteAsync(long id)
+        public async Task DeleteAsync(long id)
         {
             var student = await _dbo.Students.FindAsync(id);
-            if(student is not null)
-            {
-                _dbo.Students.Remove(student);
-                await _dbo.SaveChangesAsync();
-                return true;
-            }
-            else return false;
+            _dbo.Students.Remove(student);
+            await _dbo.SaveChangesAsync();
         }
 
         public async Task<Student> FindeAsync(long id)
         {
             var student = await _dbo.Students.FindAsync(id);
-            if(student is not null)
-            {
-                return student;
-            }
-            else return new Student();
+            return student;
         }
 
-        public async Task<bool> UpdateAsync(long id, Student entity)
+        public async Task UpdateAsync(long id, Student entity)
         {
-            var student = await _dbo.Students.FindAsync(id);
-            if (student is not null)
-            {
-                entity.Id = id;
-                _dbo.Students.Update(entity);
-                await _dbo.SaveChangesAsync();
-                return true;
-            }
-            else return false;
+            entity.Id = id;
+            _dbo.Students.Update(entity);
+            await _dbo.SaveChangesAsync();
         }
 
         public async Task<IQueryable<Student>> GetAllAsync()

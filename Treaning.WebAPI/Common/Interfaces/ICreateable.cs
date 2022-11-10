@@ -2,6 +2,6 @@
 {
     public interface ICreateable<T>
     {
-        Task<bool> CreateAsync(T entity);
+        Task CreateAsync(T entity);
     }
 }

@@ -2,6 +2,6 @@
 {
     public interface IUpdateable<T>
     {
-        Task<bool> UpdateAsync(long id,T entity);
+        Task UpdateAsync(long id,T entity);
     }
 }

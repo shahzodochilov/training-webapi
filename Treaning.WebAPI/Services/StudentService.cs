@@ -37,7 +37,7 @@ namespace Treaning.WebAPI.Services
 
         public async Task<IEnumerable<Student>> GetAllAsync(PaginationParams @params)
         {
-            var students = await _studentRepository.GetAllAsync();
+            var students = (await _studentRepository.GetAllAsync()).Skip(@params.GetSkipCount()).Take(@params.PageSize);
             return students;
         }
 
