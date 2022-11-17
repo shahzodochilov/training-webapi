@@ -1,7 +1,9 @@
 
 //-->  Services
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using Treaning.WebAPI.Data;
+using Serilog;
 using Treaning.WebAPI.Interfaces.Repositories;
 using Treaning.WebAPI.Interfaces.Services;
 using Treaning.WebAPI.Repositories;
@@ -15,6 +17,10 @@ builder.Services.AddSwaggerGen();
 //--> Database
 var connectionString = builder.Configuration.GetConnectionString("PostgreSqlLocalDb");
 builder.Services.AddDbContext<AppDbContext>(dbOptios => dbOptios.UseNpgsql(connectionString));
+
+// Serilog
+builder.Host.UseSerilog((hostingContext, loggerConfiguration)=>
+                loggerConfiguration.ReadFrom.Configuration(hostingContext.Configuration));
 
 //--> Repository Reletions
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
