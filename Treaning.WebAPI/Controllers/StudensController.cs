@@ -33,12 +33,6 @@ namespace Treaning.WebAPI.Controllers
             else return StatusCode(result.statusCode, result.message);
         }
 
-        [HttpPost, AllowAnonymous]
-        public async Task<IActionResult> CreateAsync([FromForm] StudentCreateViewModel studentCreateViewModel)
-        {
-            var result = await _studentService.CreateAsync(studentCreateViewModel);
-            return StatusCode(result.statusCode, result.message);
-        }
 
         [HttpPut("{id}"), AllowAnonymous]
         public async Task<IActionResult> UpdateAsync(long id, [FromForm] StudentCreateViewModel studentCreateViewModel)
