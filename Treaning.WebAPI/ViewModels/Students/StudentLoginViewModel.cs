@@ -7,10 +7,10 @@ namespace Treaning.WebAPI.ViewModels.Students
 {
     public class StudentLoginViewModel
     {
-        [EmailAddress]
+        [Required, EmailAddress]
         public string? Email { get; set; }
 
-        [PasswordPropertyText]
+        [Required, PasswordPropertyText]
         public string? Password { get; set; }
     }
 }

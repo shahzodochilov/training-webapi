@@ -16,13 +16,6 @@ namespace Treaning.WebAPI.Services
             this._studentRepository = studentRepository;
         }
 
-        public async Task<(int statusCode, string message)> CreateAsync(StudentCreateViewModel studentCreateViewModel)
-        {
-            var student = (Student) studentCreateViewModel;
-            await _studentRepository.CreateAsync(student);
-            return (statusCode: 200, message: "");
-        }
-
         public async Task<(int statusCode, string message)> DeleteAsync(long id)
         {
             var student = await _studentRepository.FindeAsync(id);
@@ -48,13 +41,15 @@ namespace Treaning.WebAPI.Services
             else return (statusCode: 404, student = new Student(), message: "Student not found");
         }
 
-        public async Task<(int statusCode, string message)> UpdateAsync(long id, StudentCreateViewModel studentCreateViewModel)
+        public async Task<(int statusCode, string message)> UpdateAsync(long id, StudentUpdateViewModel studentUpdateViewModel)
         {
             var student = await _studentRepository.FindeAsync(id);
             if (student is not null)
             {
-                student = (Student)studentCreateViewModel;
-                await _studentRepository.UpdateAsync(id, student);
+                Student updateStudent = new Student();
+                updateStudent = (Student)studentUpdateViewModel;
+                updateStudent.PasswordHash = student.PasswordHash;
+                await _studentRepository.UpdateAsync(id, updateStudent);
                 return (statusCode: 200, message: "");
             }
             else return (statusCode: 404, message: "Student not found");

@@ -7,7 +7,7 @@ using Treaning.WebAPI.ViewModels.Students;
 
 namespace Treaning.WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/students")]
     [ApiController]
     public class StudensController : ControllerBase
     {
@@ -33,11 +33,17 @@ namespace Treaning.WebAPI.Controllers
             else return StatusCode(result.statusCode, result.message);
         }
 
+        [HttpGet("{id}/treanings"), AllowAnonymous]
+        public async Task<IActionResult> GetAllTreaningsAsync(long id)
+        {
+            return Ok();
+        }
+
 
         [HttpPut("{id}"), AllowAnonymous]
-        public async Task<IActionResult> UpdateAsync(long id, [FromForm] StudentCreateViewModel studentCreateViewModel)
+        public async Task<IActionResult> UpdateAsync(long id, [FromForm] StudentUpdateViewModel studentUpdateViewModel)
         {
-            var result = await _studentService.UpdateAsync(id, studentCreateViewModel);
+            var result = await _studentService.UpdateAsync(id, studentUpdateViewModel);
             return StatusCode(result.statusCode, result.message);
         }
 

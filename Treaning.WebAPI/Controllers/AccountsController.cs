@@ -10,17 +10,17 @@ namespace Treaning.WebAPI.Controllers
     [ApiController]
     public class AccountsController : ControllerBase
     {
-        private readonly IStudentService _studentService;
+        private readonly IAccountService _accountService;
 
-        public AccountsController(IStudentService studentService)
+        public AccountsController(IAccountService accountService)
         {
-            this._studentService = studentService;
+            this._accountService = accountService;
         }
 
         [HttpPost("registr")]
         public async Task<IActionResult> CreateAsync([FromForm] StudentCreateViewModel studentCreateViewModel)
         {
-            var result = await _studentService.CreateAsync(studentCreateViewModel);
+            var result = await _accountService.RegistrAsync(studentCreateViewModel);
             return StatusCode(result.statusCode, result.message);
         }
 

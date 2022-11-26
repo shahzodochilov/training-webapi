@@ -32,6 +32,7 @@ builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 
 //--> Service Reletions
 builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
 
 //--> Middlewares
 var app = builder.Build();
