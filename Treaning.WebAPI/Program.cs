@@ -8,6 +8,7 @@ using Treaning.WebAPI.Interfaces.Repositories;
 using Treaning.WebAPI.Interfaces.Services;
 using Treaning.WebAPI.Repositories;
 using Treaning.WebAPI.Services;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -16,7 +17,11 @@ builder.Services.AddSwaggerGen();
 
 //--> Database
 var connectionString = builder.Configuration.GetConnectionString("PostgreSqlLocalDb");
-builder.Services.AddDbContext<AppDbContext>(dbOptios => dbOptios.UseNpgsql(connectionString));
+builder.Services.AddDbContext<AppDbContext>(dbOptions =>
+{
+    dbOptions.UseNpgsql(connectionString);
+    dbOptions.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+});
 
 // Serilog
 builder.Host.UseSerilog((hostingContext, loggerConfiguration)=>

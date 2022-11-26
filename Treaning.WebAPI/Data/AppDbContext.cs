@@ -18,5 +18,13 @@ namespace Treaning.WebAPI.Data
         public virtual DbSet<TreaningInfo> TreaningInfos { get; set; } = null!;
 
         public virtual DbSet<RegisterDetail> RegisterDetails { get; set; } = null!;
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Student>().HasIndex(x => x.Email).IsUnique();
+            modelBuilder.Entity<Student>().HasIndex(x => x.PhoneNumber).IsUnique();
+            modelBuilder.Entity<Teacher>().HasIndex(x => x.PhoneNumber).IsUnique();
+            modelBuilder.Entity<Teacher>().HasIndex(x => x.Email).IsUnique();
+        }
     }
 }
