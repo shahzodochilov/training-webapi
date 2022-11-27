@@ -7,9 +7,9 @@ namespace Treaning.WebAPI.Interfaces.Services
 {
     public interface IStudentService
     {
-        Task<IEnumerable<Student>> GetAllAsync(PaginationParams @params);
+        Task<IEnumerable<StudentViewModel>> GetAllAsync(PaginationParams @params);
 
-        Task<(int statusCode, Student student, string message)> GetAsync(long id);
+        Task<(int statusCode, StudentViewModel studentViewModel, string message)> GetAsync(long id);
 
         Task<(int statusCode, string message)> UpdateAsync(long id, StudentUpdateViewModel studentUpdateViewModel);
 

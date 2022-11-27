@@ -28,17 +28,28 @@ namespace Treaning.WebAPI.Services
             
         }
 
-        public async Task<IEnumerable<Student>> GetAllAsync(PaginationParams @params)
+        public async Task<IEnumerable<StudentViewModel>> GetAllAsync(PaginationParams @params)
         {
             var students = (await _studentRepository.GetAllAsync()).Skip(@params.GetSkipCount()).Take(@params.PageSize);
-            return students;
+            var studentViewModels = new List<StudentViewModel>();
+            foreach (var student in students)
+            {
+                var studentViewModel = (StudentViewModel)student;
+                studentViewModels.Add(studentViewModel);
+            }
+            return studentViewModels;
         }
 
-        public async Task<(int statusCode, Student student, string message)> GetAsync(long id)
+        public async Task<(int statusCode, StudentViewModel studentViewModel, string message)> GetAsync(long id)
         {
             var student = await _studentRepository.FindeAsync(id);
-            if (student is not null) return (statusCode: 200, student, message: "");
-            else return (statusCode: 404, student = new Student(), message: "Student not found");
+            StudentViewModel studentViewModel = new StudentViewModel();
+            if (student is not null)
+            {
+                studentViewModel = (StudentViewModel)student;
+                return (statusCode: 200, studentViewModel, message: "");
+            }
+            else return (statusCode: 404, studentViewModel = new StudentViewModel(), message: "Student not found");
         }
 
         public async Task<(int statusCode, string message)> UpdateAsync(long id, StudentUpdateViewModel studentUpdateViewModel)

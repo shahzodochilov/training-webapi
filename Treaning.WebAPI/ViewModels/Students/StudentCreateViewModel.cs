@@ -54,7 +54,7 @@ public class StudentCreateViewModel
                 PhoneNumber = studentCreateViewModel.PhoneNumber,
                 Email = studentCreateViewModel.Email,
                 Gender = studentCreateViewModel.Gender,
-                PasswordHash = studentCreateViewModel.Password
+                PasswordHash = studentCreateViewModel.Password,
             };
         }
 }

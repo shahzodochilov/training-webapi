@@ -29,7 +29,7 @@ namespace Treaning.WebAPI.Controllers
         public async Task<IActionResult> GetAsync(long id)
         {
             var result = await _studentService.GetAsync(id);
-            if (result.statusCode != 404) return StatusCode(result.statusCode, result.student);
+            if (result.statusCode != 404) return StatusCode(result.statusCode, result.studentViewModel);
             else return StatusCode(result.statusCode, result.message);
         }
 

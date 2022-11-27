@@ -18,6 +18,8 @@ namespace Treaning.WebAPI.ViewModels.Students
 
         public string? Gender { get; set; }
 
+        public string? ImageUrl { get; set; }
+
         public static implicit operator StudentViewModel(Student student)
         {
             return new StudentViewModel()
@@ -27,7 +29,8 @@ namespace Treaning.WebAPI.ViewModels.Students
                 LastName = student.LastName,
                 PhoneNumber = student.PhoneNumber,
                 Email = student.Email,
-                Gender = student.Gender == Enums.Gender.Male ? "Erkak" : "Ayol"
+                Gender = student.Gender == Enums.Gender.Male ? "Erkak" : "Ayol",
+                ImageUrl = student.ImagePath
             };
         }
     }
