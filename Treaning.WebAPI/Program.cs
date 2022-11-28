@@ -33,6 +33,7 @@ builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 //--> Service Reletions
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IFileService, FileService>();
 
 //--> Middlewares
 var app = builder.Build();
@@ -41,6 +42,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// UseStaticFiles is for using static files 
+app.UseStaticFiles();
+
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
