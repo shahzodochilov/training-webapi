@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using Treaning.WebAPI.Exceptions;
 using Treaning.WebAPI.Interfaces.Services;
 using Treaning.WebAPI.Services;
 using Treaning.WebAPI.ViewModels.Students;
@@ -21,7 +23,7 @@ namespace Treaning.WebAPI.Controllers
         public async Task<IActionResult> CreateAsync([FromForm] StudentCreateViewModel studentCreateViewModel)
         {
             var result = await _accountService.RegistrAsync(studentCreateViewModel);
-            return StatusCode(result.statusCode, result.message);
+            throw new StatusCodeException(HttpStatusCode.Created, "Saved successfully");
         }
 
 

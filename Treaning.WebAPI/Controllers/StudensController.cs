@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Net;
+using Treaning.WebAPI.Exceptions;
 using Treaning.WebAPI.Interfaces.Services;
+using Treaning.WebAPI.Models;
 using Treaning.WebAPI.Utils;
 using Treaning.WebAPI.ViewModels.Students;
 
@@ -20,17 +24,14 @@ namespace Treaning.WebAPI.Controllers
 
         [HttpGet, AllowAnonymous]
         public async Task<IActionResult> GetAllAsync([FromQuery] PaginationParams @params)
-        {
-            var result = await _studentService.GetAllAsync(@params);
-            return Ok(result);
-        }
+           => Ok(await _studentService.GetAllAsync(@params));
 
         [HttpGet("{id}"), AllowAnonymous]
         public async Task<IActionResult> GetAsync(long id)
         {
             var result = await _studentService.GetAsync(id);
-            if (result.statusCode != 404) return StatusCode(result.statusCode, result.studentViewModel);
-            else return StatusCode(result.statusCode, result.message);
+            if (result.Id == 0) throw new StatusCodeException(HttpStatusCode.NotFound, "Student not found");
+            else return Ok(result);
         }
 
         [HttpGet("{id}/treanings"), AllowAnonymous]
@@ -42,16 +43,15 @@ namespace Treaning.WebAPI.Controllers
 
         [HttpPut("{id}"), AllowAnonymous]
         public async Task<IActionResult> UpdateAsync(long id, [FromForm] StudentUpdateViewModel studentUpdateViewModel)
-        {
-            var result = await _studentService.UpdateAsync(id, studentUpdateViewModel);
-            return StatusCode(result.statusCode, result.message);
-        }
+            => Ok(await _studentService.UpdateAsync(id, studentUpdateViewModel));
+        //{
+        //    var result =;
+        //    if (result) throw new StatusCodeException(HttpStatusCode.OK, "Successfully");
+        //    else throw new StatusCodeException(HttpStatusCode.NotFound, "Student not found");
+        //}
 
         [HttpDelete("{id}"), AllowAnonymous]
         public async Task<IActionResult> DeleteAsync(long id)
-        {
-            var result = await _studentService.DeleteAsync(id);
-            return StatusCode(result.statusCode, result.message);
-        }
+            => Ok(await _studentService.DeleteAsync(id));
     }
 }

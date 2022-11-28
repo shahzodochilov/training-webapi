@@ -16,15 +16,15 @@ namespace Treaning.WebAPI.Services
             this._studentRepository = studentRepository;
         }
 
-        public async Task<(int statusCode, string message)> DeleteAsync(long id)
+        public async Task<bool> DeleteAsync(long id)
         {
             var student = await _studentRepository.FindeAsync(id);
             if(student is not null)
             {
                 await _studentRepository.DeleteAsync(id);
-                return (statusCode: 200, message: "");
+                return true;
             }
-            return (statusCode: 404, message: "Student not found");
+            return false;
             
         }
 
@@ -40,19 +40,19 @@ namespace Treaning.WebAPI.Services
             return studentViewModels;
         }
 
-        public async Task<(int statusCode, StudentViewModel studentViewModel, string message)> GetAsync(long id)
+        public async Task<StudentViewModel> GetAsync(long id)
         {
             var student = await _studentRepository.FindeAsync(id);
             StudentViewModel studentViewModel = new StudentViewModel();
             if (student is not null)
             {
                 studentViewModel = (StudentViewModel)student;
-                return (statusCode: 200, studentViewModel, message: "");
+                return studentViewModel;
             }
-            else return (statusCode: 404, studentViewModel = new StudentViewModel(), message: "Student not found");
+            else return new StudentViewModel();
         }
 
-        public async Task<(int statusCode, string message)> UpdateAsync(long id, StudentUpdateViewModel studentUpdateViewModel)
+        public async Task<bool> UpdateAsync(long id, StudentUpdateViewModel studentUpdateViewModel)
         {
             var student = await _studentRepository.FindeAsync(id);
             if (student is not null)
@@ -61,9 +61,9 @@ namespace Treaning.WebAPI.Services
                 updateStudent = (Student)studentUpdateViewModel;
                 updateStudent.PasswordHash = student.PasswordHash;
                 await _studentRepository.UpdateAsync(id, updateStudent);
-                return (statusCode: 200, message: "");
+                return true;
             }
-            else return (statusCode: 404, message: "Student not found");
+            else return false;
         }
     }
 }

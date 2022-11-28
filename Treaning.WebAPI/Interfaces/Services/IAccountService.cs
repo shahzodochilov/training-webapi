@@ -4,6 +4,6 @@ namespace Treaning.WebAPI.Interfaces.Services
 {
     public interface IAccountService
     {
-        Task<(int statusCode, string message)> RegistrAsync(StudentCreateViewModel studentCreateViewModel);
+        Task<bool> RegistrAsync(StudentCreateViewModel studentCreateViewModel);
     }
 }

@@ -29,7 +29,7 @@ namespace Treaning.WebAPI.ViewModels.Students
                 LastName = student.LastName,
                 PhoneNumber = student.PhoneNumber,
                 Email = student.Email,
-                Gender = student.Gender == Enums.Gender.Male ? "Erkak" : "Ayol",
+                Gender = student.Gender == Enums.Gender.Male ? "Male" : "Female",
                 ImageUrl = student.ImagePath
             };
         }

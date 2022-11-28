@@ -9,10 +9,10 @@ namespace Treaning.WebAPI.Interfaces.Services
     {
         Task<IEnumerable<StudentViewModel>> GetAllAsync(PaginationParams @params);
 
-        Task<(int statusCode, StudentViewModel studentViewModel, string message)> GetAsync(long id);
+        Task<StudentViewModel> GetAsync(long id);
 
-        Task<(int statusCode, string message)> UpdateAsync(long id, StudentUpdateViewModel studentUpdateViewModel);
+        Task<bool> UpdateAsync(long id, StudentUpdateViewModel studentUpdateViewModel);
 
-        Task<(int statusCode, string message)> DeleteAsync(long id);
+        Task<bool> DeleteAsync(long id);
     }
 }

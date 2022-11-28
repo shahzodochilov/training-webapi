@@ -9,6 +9,7 @@ using Treaning.WebAPI.Interfaces.Services;
 using Treaning.WebAPI.Repositories;
 using Treaning.WebAPI.Services;
 using Microsoft.Extensions.Options;
+using Treaning.WebAPI.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -42,6 +43,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 // UseStaticFiles is for using static files 
 app.UseStaticFiles();

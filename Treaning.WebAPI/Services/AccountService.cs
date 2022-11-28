@@ -1,4 +1,5 @@
-﻿using Treaning.WebAPI.Interfaces.Repositories;
+﻿using Treaning.WebAPI.Exceptions;
+using Treaning.WebAPI.Interfaces.Repositories;
 using Treaning.WebAPI.Interfaces.Services;
 using Treaning.WebAPI.Models;
 using Treaning.WebAPI.Security;
@@ -15,7 +16,7 @@ namespace Treaning.WebAPI.Services
             this._studentRepository = studentRepository;
             this._fileService = fileService;
         }
-        public async Task<(int statusCode, string message)> RegistrAsync(StudentCreateViewModel studentCreateViewModel)
+        public async Task<bool> RegistrAsync(StudentCreateViewModel studentCreateViewModel)
         {
             var student = (Student)studentCreateViewModel;
             var hasherResult = PasswordHasher.Hash(studentCreateViewModel.Password!);
@@ -23,7 +24,7 @@ namespace Treaning.WebAPI.Services
             student.Salt = hasherResult.Salt;
             student.ImagePath = await _fileService.SaveImageAsync(studentCreateViewModel.Image);
             await _studentRepository.CreateAsync(student);
-            return (statusCode: 200, message: "Saved successfully");
+            return true;
         }
     }
 }
