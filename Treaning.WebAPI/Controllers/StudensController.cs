@@ -44,11 +44,6 @@ namespace Treaning.WebAPI.Controllers
         [HttpPut("{id}"), AllowAnonymous]
         public async Task<IActionResult> UpdateAsync(long id, [FromForm] StudentUpdateViewModel studentUpdateViewModel)
             => Ok(await _studentService.UpdateAsync(id, studentUpdateViewModel));
-        //{
-        //    var result =;
-        //    if (result) throw new StatusCodeException(HttpStatusCode.OK, "Successfully");
-        //    else throw new StatusCodeException(HttpStatusCode.NotFound, "Student not found");
-        //}
 
         [HttpDelete("{id}"), AllowAnonymous]
         public async Task<IActionResult> DeleteAsync(long id)
